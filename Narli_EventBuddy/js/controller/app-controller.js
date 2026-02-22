@@ -324,7 +324,7 @@ export class AppController {
     }
   }
 
-  /* --- Persistierung (Model-Schnittstelle) --- */
+  /* --- (Model-Schnittstelle) --- */
   _saveEventForm(payload) {
     const v = payload.values ?? {};
     const data = {
