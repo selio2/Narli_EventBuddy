@@ -1,0 +1,38 @@
+﻿@use 'variables' as *;
+
+// Desktop: 768px und größer
+@mixin desktop {
+  @media (min-width: $bp-desktop-min) {
+    @content; // Styles für große Bildschirme
+  }
+}
+
+// Handheld (Tablet + Mobil): 767px und kleiner
+@mixin tablet {
+  @media (max-width: $bp-tablet) {
+    @content; // Styles für mobile Geräte
+  }
+}
+
+/* --- Utilities --- */
+
+// Einheitlicher Focus-Ring für Barrierefreiheit
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid rgba($color-primary, 0.4);
+    outline-offset: 2px;
+    box-shadow: $shadow-focus; // Sichtbarer Fokus-Indikator
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center; // Komplett mittig ausrichten
+}
+
+// Verhindert Textauswahl
+@mixin no-select {
+  user-select: none;
+  -webkit-user-select: none; // Text nicht markierbar machen
+}

@@ -1,0 +1,78 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.shell {
+  width: 100%;
+  height: calc(100dvh - 2rem); // Gesamthöhe abzüglich Padding
+  display: grid;
+  grid-template-columns: minmax(320px, 360px) minmax(0, 1fr); // Sidebar links, Content rechts
+  gap: 1rem;
+}
+
+.panel {
+  background: $color-panel;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: none;
+  min-height: 0; // Verhindert Grid-Overflow
+  overflow: hidden;
+}
+
+.sidebar {
+  padding: 1.35rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto; // Header, Liste (flexibel), User-Info
+  gap: 1rem;
+  min-height: 0;
+
+  &__header {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  &__events {
+    min-height: 0;
+    overflow-y: auto; // Scrollbare Event-Liste
+    padding-right: 0.2rem;
+
+    &::-webkit-scrollbar {
+      width: 4px; // Schmale Scrollbar
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $color-border;
+      border-radius: 10px;
+    }
+  }
+}
+
+.detail {
+  padding: 1.45rem 1.6rem;
+  overflow-y: auto; // Eigenständiges Scrollen im Content
+  min-height: 0;
+}
+
+/* --- Responsive Layout --- */
+@include tablet {
+  body {
+    padding: 0.5rem;
+    overflow: auto; // Scrollen für gesamten Viewport
+  }
+
+  .shell {
+    height: auto;
+    min-height: calc(100dvh - 1rem);
+    grid-template-columns: 1fr; // Einspaltig untereinander
+    gap: 0.65rem;
+  }
+
+  .sidebar {
+    min-height: 48dvh; // Fast halbe Bildschirmhöhe
+    padding: 1rem;
+  }
+
+  .detail {
+    min-height: 48dvh;
+    padding: 1.05rem;
+    overflow: visible; // Verhindert Scroll-Konflikte im Stack
+  }
+}

@@ -1,0 +1,508 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+/* --- UI Elements & Icons --- */
+.ui-icon {
+  width: 1rem;
+  height: 1rem;
+  display: inline-grid;
+  place-items: center; // Zentriert das Icon perfekt
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.divider {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid $color-border; // Schlichte Trennlinie
+  margin: 0;
+}
+
+/* --- Tabs --- */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-bottom: 1px solid $color-border;
+  padding-bottom: 0.75rem;
+
+  &__item {
+    border: 0;
+    background: transparent;
+    color: $color-text;
+    font-size: 1.38rem;
+    font-weight: 650;
+    line-height: 1;
+    padding: 0;
+    pointer-events: none; // Nur Anzeige, kein Klick-Effekt
+  }
+
+  &__add {
+    margin-left: auto; // Schiebt Button nach ganz rechts
+    width: 2.15rem;
+    height: 2.15rem;
+    border: 1.5px solid $color-primary;
+    border-radius: 999px; // Runder Button
+    background: $color-primary-soft;
+    color: $color-primary;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 160ms ease;
+
+    .ui-icon {
+      width: 1.02rem;
+      height: 1.02rem;
+    }
+
+    &:hover {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-white;
+    }
+  }
+}
+
+/* --- Search & Filters --- */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-white;
+  padding: 0.35rem 0.55rem;
+
+  &__icon {
+    color: $color-muted;
+  }
+
+  &__input {
+    flex: 1; // Nutzt restlichen Platz
+    border: 0;
+    background: transparent;
+    color: $color-text;
+    font-size: 0.9rem;
+
+    &::placeholder {
+      color: $color-muted;
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__action { // Löschen/Aktion-Button in der Suche
+    width: 1.35rem;
+    height: 1.35rem;
+    border: 1px solid $color-border;
+    border-radius: 999px;
+    background: rgba($color-muted, 0.1);
+    color: $color-muted;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 160ms ease;
+
+    .ui-icon {
+      width: 0.72rem;
+      height: 0.72rem;
+    }
+
+    &:hover {
+      background: $color-primary-soft;
+      color: $color-primary;
+    }
+  }
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // Zwei Spalten Layout
+  gap: 0.65rem;
+}
+
+.filter-field {
+  display: grid;
+  gap: 0.28rem;
+
+  &__label {
+    font-size: 0.64rem;
+    color: $color-muted;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase; // Kompakte, kleine Beschriftung
+  }
+}
+
+.select-input {
+  min-height: 2.2rem;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-white;
+  color: $color-text;
+  font-size: 0.86rem;
+  padding: 0 0.55rem;
+
+  &:focus {
+    outline: none;
+    border-color: $color-border-strong;
+    box-shadow: $shadow-focus;
+  }
+}
+
+/* --- Status Switch --- */
+.status-switch {
+  display: flex; // Toggle-Button Gruppe
+  border: 1.5px solid $color-border;
+  border-radius: 0.78rem;
+  background: $color-white;
+  padding: 0.2rem;
+
+  &__item {
+    flex: 1;
+    border: 0;
+    border-radius: 0.6rem;
+    background: transparent;
+    color: $color-text-muted;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0.42rem 0.4rem;
+    cursor: pointer;
+    transition: all 160ms ease;
+
+    &:not(&--active):hover {
+      background: hsla(0, 0%, 100%, 0.72);
+      color: $color-text;
+    }
+
+    &--active { // Aktiver Zustand (Geplant vs Abgeschlossen)
+      background: $color-white;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      color: $color-primary;
+
+      &[data-status="planned"] {
+        background: rgba(31, 143, 69, 0.1);
+        border: 1px solid rgba(31, 143, 69, 0.3);
+        color: #1f7f43; // Grüner Status
+      }
+
+      &[data-status="completed"] {
+        background: $color-panel-strong;
+        border: 1px solid $color-border-strong;
+        color: $color-text-muted; // Grauer Status
+      }
+    }
+  }
+}
+
+/* --- Event List & Entries --- */
+.event-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.event-entry {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+  background: $color-white;
+  cursor: pointer;
+  transition: all 160ms ease;
+
+  &:hover {
+    background: $color-primary-soft;
+    box-shadow: $shadow-soft;
+  }
+
+  &--active {
+    background: $color-panel-strong;
+    border-color: $color-border-strong;
+  }
+
+  &__date { // Die kleine quadratische Datumsbox
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: $radius-sm;
+    background: $color-border;
+    color: $color-text-muted;
+    display: grid;
+    place-items: center;
+    grid-template-rows: 1.06rem 0.64rem;
+    align-content: center;
+    row-gap: 0.02rem;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  &__day { font-size: 1.06rem; }
+  &__month { font-size: 0.62rem; letter-spacing: 0.08em; }
+
+  &__title {
+    display: block;
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: $color-text;
+    line-height: 1.2;
+  }
+
+  &__place {
+    display: block;
+    margin-top: 0.17rem;
+    font-size: 0.78rem;
+    color: $color-muted;
+    line-height: 1.2;
+  }
+
+  &--planned &__date {
+    background: rgba(31, 143, 69, 0.15);
+    color: #1f7f43;
+  }
+
+  &--completed &__date {
+    background: $color-panel-strong;
+    color: $color-text-muted;
+  }
+}
+
+/* --- Sidebar User --- */
+.sidebar-user {
+  border-top: 1px solid $color-border;
+  padding-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+
+  &__avatar {
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 1.5px solid rgba($color-primary, 0.36);
+    border-radius: 999px;
+    color: $color-primary;
+    background: $color-primary-soft;
+    display: inline-grid;
+    place-items: center;
+
+    .ui-icon { width: 1rem; height: 1rem; }
+  }
+
+  &__name { font-size: 0.95rem; font-weight: 700; }
+  &__state { font-size: 0.74rem; color: $color-muted; }
+
+  &__logout {
+    border: 0;
+    background: transparent;
+    font-size: 0.74rem;
+    font-weight: 650;
+    color: #b71c1c; // Warnfarbe Rot
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover { color: #8f1515; }
+    @include focus-ring;
+  }
+}
+
+/* --- Detail View --- */
+.detail {
+  &__title {
+    margin-top: 0.85rem;
+    color: $color-text;
+    font-family: $font-family-display;
+    font-size: clamp(1.42rem, 2.8vw, 2.2rem); // Responsive Schriftgröße
+    line-height: 1.08;
+    font-weight: 700;
+  }
+
+  &__description {
+    margin-top: 0.72rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba($color-text, 0.74);
+  }
+}
+
+.status-chip { // Kleines Status-Badge (z.B. "Geplant")
+  border: 1px solid $color-border-strong;
+  border-radius: 0.65rem;
+  padding: 0.2rem 0.52rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $color-primary;
+  background: $color-primary-soft;
+
+  &--planned {
+    color: #1f7f43;
+    border-color: rgba(31, 143, 69, 0.4);
+    background: rgba(31, 143, 69, 0.1);
+  }
+}
+
+.tag-pill { // Kleines Tag/Etikett
+  border: 1.5px solid $color-border;
+  border-radius: 0.62rem;
+  background: $color-primary-soft;
+  padding: 0.22rem 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 650;
+  color: $color-primary;
+}
+
+/* --- Participants --- */
+.participant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); // Automatisches Spalten-Grid
+  gap: 0.72rem;
+}
+
+.participant-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.58rem;
+  border: 1px solid $color-border-light;
+  border-radius: 0.9rem;
+  background: $color-white;
+  padding: 0.52rem 0.58rem;
+  transition: all 180ms ease;
+
+  &:hover {
+    border-color: $color-border-strong;
+    box-shadow: $shadow-soft;
+  }
+
+  &__avatar {
+    width: 1.9rem;
+    height: 1.9rem;
+    border: 1px solid $color-border;
+    border-radius: 999px;
+    background: $color-panel-strong;
+    color: $color-text-muted;
+    display: grid;
+    place-items: center;
+  }
+
+  &__name {
+    font-size: 0.83rem;
+    font-weight: 700;
+    color: $color-text;
+  }
+}
+
+/* --- Modals & Forms --- */
+.modal-overlay {
+  position: fixed; // Fixiert über die ganze Seite
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.modal {
+  width: min(100%, 560px); // Maximal 560px breit
+  background: $color-white;
+  border: 1.5px solid $color-border;
+  border-radius: 1.35rem;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.1rem;
+
+  &__title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.modal-field {
+  &__label {
+    font-size: 0.66rem;
+    color: $color-muted;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__control { // Input Felder im Modal
+    width: 100%;
+    border: 1.5px solid $color-border;
+    border-radius: $radius-sm;
+    padding: 0.4rem 0.52rem;
+    background: $color-white;
+
+    &:focus {
+      outline: none;
+      border-color: $color-border-strong;
+      box-shadow: $shadow-focus;
+    }
+  }
+}
+
+/* --- Buttons --- */
+.btn-primary, .btn-secondary {
+  min-height: 1.95rem;
+  border-radius: 0.74rem;
+  padding: 0.3rem 0.78rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.btn-primary {
+  border: 1.5px solid $color-primary;
+  background: $color-primary;
+  color: $color-white;
+
+  &:hover { background: $color-primary-hover; border-color: $color-primary-hover; }
+}
+
+.btn-secondary {
+  border: 1.5px solid $color-border;
+  background: $color-white;
+  color: $color-text;
+
+  &:hover { background: $color-panel-strong; }
+}
+
+/* --- Tablet & Mobile Overrides --- */
+@include tablet { // Anpassungen für kleinere Bildschirme
+  .tabs__item { font-size: 1.08rem; }
+  .filter-row { grid-template-columns: 1fr; } // Nur eine Spalte mobil
+  
+  .participant-detail {
+    grid-template-columns: 1fr;
+    text-align: center;
+    &__name { font-size: 2.1rem; }
+  }
+
+  .participant-grid { grid-template-columns: 1fr; }
+  
+  .modal {
+    padding: 0.9rem;
+    &--tag-manager { width: 100%; max-width: 100%; }
+  }
+
+  .tabs__add, .toolbar-plus {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+}

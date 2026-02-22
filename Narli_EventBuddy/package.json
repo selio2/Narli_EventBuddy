@@ -1,0 +1,9 @@
+﻿{
+  "name": "eventbuddy",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "sass styles/main.scss styles/main.css --watch --style=expanded --source-map",
+    "build": "sass styles/main.scss styles/main.css --style=compressed --no-source-map"
+  }
+}

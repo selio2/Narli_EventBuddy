@@ -1,0 +1,44 @@
+@use "variables" as *; // Variablen laden
+
+*, *::before, *::after {
+  box-sizing: border-box; // Padding in Breite einrechnen
+}
+
+html, body {
+  margin: 0;
+  height: 100%; // Volle Fensterhöhe
+}
+
+body {
+  padding: 1rem;
+  font-family: $font-family-base;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: $color-text;
+  background: $color-bg; // Basis-Styling & Schrift
+}
+
+eventbuddy-app {
+  display: block;
+  height: 100%; // Container-Höhe
+}
+
+h1, h2, h3, h4, p {
+  margin: 0; // Abstände resetten
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit; // Formular-Schrift angleichen
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; // Nur für Screenreader (Barrierefreiheit)
+}

@@ -1,0 +1,213 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+/* --- Theme Bridge --- */
+/* SCSS-Tokens in CSS-Variablen überführen */
+:root {
+  --theme-accent: #{$color-primary};
+  --theme-accent-strong: #{$color-primary-hover};
+  --theme-accent-soft: #{$color-primary-soft};
+  --theme-bg-soft: #{$color-bg};
+  --theme-bg-soft-2: #{$color-bg};
+  --theme-border-soft: #{$color-border};
+}
+
+/* --- Global Overrides --- */
+body {
+  background: var(--theme-bg-soft);
+}
+
+/* --- Mobile Topbars --- */
+.mobile-topbar,
+.detail-mobile-topbar {
+  display: none; // Standardmäßig aus
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: $color-white;
+  padding-bottom: 0.36rem;
+}
+
+.mobile-topbar {
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.42rem;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-text;
+    font-size: 1rem;
+    font-weight: 700;
+    white-space: nowrap; // Text bleibt einzeilig
+    overflow: hidden;
+    text-overflow: ellipsis; // Kürzt mit "..."
+  }
+
+  &__button {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border: 1.5px solid var(--theme-border-soft);
+    border-radius: $radius-sm;
+    background: $color-white;
+    color: var(--theme-accent);
+    @include flex-center;
+    padding: 0.28rem 0.52rem;
+    cursor: pointer;
+    transition: all 160ms ease;
+
+    .ui-icon { width: 1rem; height: 1rem; }
+    @include focus-ring;
+
+    &:hover {
+      background: var(--theme-accent-soft);
+      border-color: var(--theme-accent);
+    }
+  }
+}
+
+.detail-mobile-back {
+  @extend .mobile-topbar__button; // Kopiert Button-Styles
+  background: var(--theme-accent);
+  color: $color-white;
+  border-color: var(--theme-accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.42rem 0.76rem;
+  justify-content: flex-start;
+
+  &:hover {
+    background: var(--theme-accent-strong);
+    border-color: var(--theme-accent-strong);
+  }
+}
+
+/* --- Event Entries & Details --- */
+.event-entry {
+  &__title, &__place {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; // Begrenzung auf 1 Zeile
+    line-clamp: 1;
+  }
+
+  &:hover, &--active {
+    background: var(--theme-bg-soft);
+    border-color: var(--theme-border-soft);
+    box-shadow: none;
+  }
+}
+
+.detail {
+  &__description {
+    max-width: none;
+    width: 100%;
+    p + p { margin-top: 0.72rem; } // Abstand zwischen Absätzen
+  }
+
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.26rem;
+    font-size: 0.76rem;
+    color: $color-text-muted;
+    font-weight: 550;
+
+    .ui-icon { width: 0.86rem; height: 0.86rem; }
+    &-text { 
+      @include text-truncate; 
+      max-width: 24ch; // Begrenzt Breite auf ca. 24 Zeichen
+    }
+  }
+}
+
+/* --- Status Switch (Draft/Planned/Completed) --- */
+.status-switch--draft {
+  display: flex;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-white;
+  padding: 0.2rem;
+  gap: 0.18rem;
+
+  .status-switch__item {
+    width: 100%;
+    display: block;
+    text-align: center;
+    border-radius: calc(#{$radius-sm} - 0.2rem);
+    transition: all 0.2s ease;
+  }
+
+  .status-switch__draft-input {
+    position: absolute;
+    opacity: 0; // Versteckter Radio-Button
+    pointer-events: none;
+
+    &:checked + .status-switch__item {
+      background: $color-white;
+      box-shadow: $shadow-soft;
+      color: $color-primary;
+    }
+  }
+
+  .status-switch__choice--planned .status-switch__draft-input:checked + .status-switch__item {
+    background: rgba($color-success, 0.15);
+    color: $color-success;
+  }
+}
+
+/* --- Responsive Layout & Drawer --- */
+@include tablet {
+  body.is-detail eventbuddy-app {
+    .sidebar { display: none; } // Sidebar aus in Detailansicht
+    .detail { display: block; padding: 1rem; height: 100%; }
+  }
+
+  .shell.sidebar-drawer {
+    .sidebar {
+      position: fixed; // Overlay Sidebar
+      inset: 0 auto 0 0;
+      width: min(88vw, 360px);
+      z-index: 960;
+      transform: translateX(-105%); // Versteckt links
+      background: $color-white;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    &--open .sidebar { transform: translateX(0); } // Reinschieben
+  }
+
+  .mobile-topbar, .detail-mobile-topbar { display: flex; }
+  .tabs { display: none; }
+
+  .filters-sheet--mobile {
+    display: none; // Klapp-Filter mobil
+    margin: 0 0 0.2rem;
+    &__body {
+      background: $color-white;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: 0.9rem;
+    }
+  }
+
+  .filters-sheet__toggle:checked ~ .filters-sheet--mobile { display: block; }
+}
+
+/* --- Visual Polish --- */
+.modal-overlay {
+  background: rgba(15, 23, 42, 0.34);
+  backdrop-filter: blur(6px); // Weichzeichner-Hintergrund
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.required-asterisk {
+  color: $color-danger; // Roter Stern für Pflichtfelder
+  font-weight: 700;
+}
+
+.ui-icon, .search__icon, .invite-link, .tag-manager-row__edit {
+  color: var(--theme-accent); // Akzentfarbe für interaktive Elemente
+}

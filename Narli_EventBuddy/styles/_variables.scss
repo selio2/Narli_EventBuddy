@@ -1,0 +1,41 @@
+/* --- Font Families --- */
+$font-family-base: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif; // Standard
+$font-family-display: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif; // Überschriften
+
+/* --- Base Colors --- */
+$color-black: #000000;
+$color-white: #FFFFFF;
+$color-slate-grey: #87979B; 
+
+/* --- Theme Colors  --- */
+$color-primary: #4F46E5; 
+$color-primary-hover: #4338CA; 
+$color-primary-soft: rgba(79, 70, 229, 0.1); // Transparenter Hintergrund für Badges
+
+/* --- Functional Colors --- */
+$color-bg: #EEF2FF; 
+$color-panel: $color-white; 
+$color-panel-strong: rgba($color-slate-grey, 0.1); // Abgesetzte Flächen innerhalb von Panels
+
+$color-text: $color-black;
+$color-text-muted: $color-slate-grey; // Textfarbe weniger wichtige Infos
+
+$color-border: rgba(135, 151, 155, 0.24); // Standard-Rahmenfarbe
+$color-border-strong: rgba(135, 151, 155, 0.34); // Trennlinien Fokus
+$color-border-light: rgba(135, 151, 155, 0.16); // dezente Trennlinien
+
+$color-success: #1F7F43; 
+$color-danger: #C62828; // Rot Fehler/Löschen
+
+/* --- Spacing & Radius --- */
+$radius-sm: 0.625rem; // Für kleine Elemente (Inputs)
+$radius-md: 0.95rem; // Für mittlere Elemente (Cards)
+$radius-lg: 1.35rem; // Für große Elemente (Modals)
+
+/* --- Shadows --- */
+$shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.06); // Dezente Tiefe für Karten
+$shadow-focus: 0 0 0 3px rgba($color-primary, 0.2); // Blauer Ring bei Klick/Fokus
+
+/* --- Breakpoints --- */
+$bp-tablet: 767px; // Ende der mobilen Ansicht
+$bp-desktop-min: 768px; // Beginn der Desktop-Ansicht

@@ -1,0 +1,27 @@
+﻿<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EventBuddy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css?v=20" />
+</head>
+
+<body class="app">
+  <eventbuddy-app></eventbuddy-app>
+  <noscript>Bitte JavaScript aktivieren, um EventBuddy zu verwenden.</noscript>
+
+  <script type="module" src="js/main.js?v=2"></script>
+
+  <!-- Meldung, wenn jemand per file:// startet -->
+  <script>
+    if (location.protocol === "file:") {
+      console.warn("[EventBuddy] Du öffnest die App via file://. Bitte öffne die App über einen lokalen Server.");
+    }
+  </script>
+</body>
+</html>
